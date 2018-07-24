@@ -114,9 +114,9 @@ var addEvent = function (newEvent) {
 
 var registerEvent = function (newOrder) {
     return new Promise((resolve, reject) => {
-        OrderModel.findOne({email: newOrder.email}, function (err, order) {
+        OrderModel.findOne({email: newOrder.email, eventID: newOrder.eventID}, function (err, order) {
             if(order){
-                reject("email already exists");
+                reject("已经注册过该事件");
             }else{
                 OrderModel.count({}, function (err, num) {
                     newOrder.id = num + 1;
@@ -128,6 +128,7 @@ var registerEvent = function (newOrder) {
         });
     })
 }
+
 
 
 module.exports = {

@@ -132,13 +132,24 @@ export class GetEventsService {
       .catch(this.handleError);
   }
 
-  registerEvent(order: Order): Promise<Event>{
-    var headers = new HttpHeaders({'content-type' :'application/json' })
-    return this.http.post('/api/v1/events/register',order)
-      .toPromise()
-      .then((res: Response) => {
-        return res;
+  // registerEvent(order: Order): Promise<Event>{
+  //   var headers = new HttpHeaders({'content-type' :'application/json' })
+  //   return this.http.post('/api/v1/events/register',order)
+  //     .toPromise()
+  //     .then((res: Response) => {
+  //       return res;
+  //     })
+  //     .catch(this.handleError);
+  // }
+
+  registerEvent(order: Order): Observable<any>{
+    let httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
       })
-      .catch(this.handleError);
+    };
+
+    return this.http.post('/api/v1/events/register', order, httpOptions);
   }
+
 }

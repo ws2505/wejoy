@@ -64,12 +64,13 @@ export class SignUpComponent implements OnInit {
         this.router.navigate(['/home']);
         },
         (error)=>{
-          console.log(error['error']['errors']);
-          this.error = error['error']['errors']['email'];
+          console.log(error);
+          this.error = error['error']['message'];
+          // this.error = error['error']['errors']['email'];
         }
       );
     }
-    
+
   }
 
 }

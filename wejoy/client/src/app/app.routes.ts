@@ -9,6 +9,7 @@ import { NewEventComponent } from "./components/new-event/new-event.component";
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { EventRegisterComponent } from "./components/event-register/event-register.component";
+import { TicketComponent } from "./components/ticket/ticket.component";
 
 const routes: Routes = [
     {
@@ -42,6 +43,10 @@ const routes: Routes = [
         //canActivate: ["userAccess"]
     },
     // TODO
+    {
+        path: "ticket",
+        component: TicketComponent,
+    },
     {
         path: "history",
         component: UserHistoryComponent,

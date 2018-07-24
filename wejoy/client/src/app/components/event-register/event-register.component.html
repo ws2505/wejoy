@@ -64,31 +64,44 @@
   </div>
 
   <!--register event-->
-  <div>
-    <form #formRef="ngForm">
-      <div class="form-group">
+  <div class="row register-card mx-auto">
+    <p class="h3 mx-auto mt-5">
+      注册活动
+    </p>
+
+    <div class="mx-auto col-12">
+      <div class="form-group my-8">
         <label for="userName">name</label>
         <input tpye="text" class="form-control" id="userName"
                name="userName" required placeholder="姓名" [(ngModel)]="newOrder.name">
       </div>
-      <div class="form-group">
+      <div class="form-group my-8">
         <label for="userEmail">email</label>
         <input tpye="text" class="form-control" id="userEmail"
                name="userEmail" required placeholder="邮箱" [(ngModel)]="newOrder.email">
       </div>
 
-      <div class="form-group">
+      <div class="form-group my-8 ">
         <label for="userPhone">Phone</label>
         <input tpye="text" class="form-control" id="userPhone"
                name="userPhone" required placeholder="电话" [(ngModel)]="newOrder.phone">
       </div>
 
-      <div class="row">
+      <div class="row my-8">
+        <div class="col-md-12 "></div>
+
+          <button type="submit" class="btn btn-primary btn-block button" (click)="registerEvent()"> 注册活动</button>
+
+      </div>
+      <mat-form-field>
+        <textarea matInput placeholder="Textarea"></textarea>
+      </mat-form-field>
+      <div class="row my-8">
         <div class="col-md-12"></div>
-        <button type="submit" class="btn btn-primary pull-right" (click)="registerEvent()"> 注册活动</button>
+        {{message}}
       </div>
 
-    </form>
+    </div>
   </div>
 
 </div>

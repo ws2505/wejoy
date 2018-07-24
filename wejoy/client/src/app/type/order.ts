@@ -3,4 +3,5 @@ export class Order{
   name: string;
   email: string;
   phone: string;
+  eventID: number;
 }

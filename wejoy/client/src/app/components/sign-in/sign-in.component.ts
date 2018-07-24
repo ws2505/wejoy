@@ -43,18 +43,14 @@ export class SignInComponent implements OnInit {
         },
         (error)=>{
           console.log(error);
-          if(error['error']['email']){
-            this.error = error['error']['email'];
-          }
-          if(error['error']['message']){
-            this.error = error['error']['message'];
-          }
+          this.error = "用户名或密码错误";
+
         }
     );
       //console.log(this.email);
       //console.log(this.password);
     }
-    
+
   }
 
 }

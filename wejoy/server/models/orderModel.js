@@ -3,7 +3,8 @@ var OrderSchema = mongoose.Schema({
     id: Number,
     name: String,
     email:  String,
-    phone: String
+    phone: String,
+    eventID: Number
 });
 
 var orderModel = mongoose.model("OrderModel", OrderSchema);

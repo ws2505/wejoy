@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit, AfterContentChecked} from '@angular/core';
 import { Event } from "../../type/event";
 import { Router } from '@angular/router';
+import {Http, Headers, RequestOptions} from '@angular/http';
 
 const DEFAULT_EVENT: Event = Object.freeze({
   id: 0,
@@ -25,7 +26,8 @@ export class NewEventComponent implements OnInit {
 
   constructor(@Inject("get_events") private getEvent,
               @Inject("auth") private auth,
-              private router: Router) { }
+              private router: Router,
+              private http: Http) { }
 
   ngOnInit() {
     if(!this.auth.canCreateEvent()){
@@ -39,6 +41,12 @@ export class NewEventComponent implements OnInit {
     }
   }
 
+
+  onChange(event) {
+    var files = event.srcElement.files;
+    console.log(files);
+  }
+
   addEvent(): void {
     if(this.agree){
       this.getEvent.addEvent(this.newEvent)
@@ -49,6 +57,6 @@ export class NewEventComponent implements OnInit {
     }
   }
 
-  
+
 
 }

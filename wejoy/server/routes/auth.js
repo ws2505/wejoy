@@ -6,6 +6,42 @@ var User = require("../models/userModel");
 var bodyParser = require("body-parser");
 var jsonParser = bodyParser.json();
 
+
+
+//
+// router.post("/signup", jsonParser, function (req, res) {
+//
+//
+//     // validate the format of user
+//     const validationResult = validateSignupForm(req.body);
+//     if(!validationResult.success){
+//         console.log('validation failed');
+//         return res.status(400).json({
+//             success: false,
+//             message: validationResult.message,
+//             errors: validationResult.errors
+//         });
+//     }
+//     const userData = {
+//         email: req.body.email.trim(),
+//         password: req.body.password.trim(),
+//         username: req.body.username.trim(),
+//         role: "n1"
+//     };
+//     const newUser = new User(userData);
+//     console.log(newUser);
+//
+//
+//     authService.addUser(req.body)
+//         .then(function (user) {
+//             res.json(user);
+//         }, function (error) {
+//             res.status(400).send("User email already exists");
+//             console.log(error);
+//         });
+// });
+//
+
 router.post('/signup', jsonParser, (req, res, next)=>{
     //console.log(req.body);
     const validationResult = validateSignupForm(req.body);
@@ -25,40 +61,47 @@ router.post('/signup', jsonParser, (req, res, next)=>{
     };
     const newUser = new User(userData);
     console.log(newUser);
-    newUser.save((err)=>{
-        console.log('try save');
-        if(err){
-            return res.status(400).json({
-                success: false,
-                message: 'could not process the form: '+err.message
-            });;
-        }
-        console.log('saved');
 
-        return passport.authenticate('local-login', (err, token, userData)=>{
-            if(err){
-                console.log(err);
-                if(err.name==='IncorrectCredentialsError'){
+    //Determine whether the user already existed
+            newUser.save((err)=>{
+                console.log('try save');
+                if(err){
                     return res.status(400).json({
                         success: false,
-                        message: ree.message
+                        message: '用户名已经存在'
                     });
                 }
-                return res.status(400).json({
-                    success: false,
-                    message: 'could not process the form: '+err.message
-                });
-            }
-            return res.status(200).json({
-                success: true,
-                message: 'log in after registration.',
-                token,
-                user: userData
-            });
-        })(req, res, next);
+                console.log('saved');
 
-    });
+                return passport.authenticate('local-login', (err, token, userData)=>{
+                    if(err){
+                        console.log(err);
+                        if(err.name==='IncorrectCredentialsError'){
+                            return res.status(400).json({
+                                success: false,
+                                message: ree.message
+                            });
+                        }
+                        return res.status(400).json({
+                            success: false,
+                            message: 'could not process the form: '+err.message
+                        });
+                    }
+                    return res.status(200).json({
+                        success: true,
+                        message: 'log in after registration.',
+                        token,
+                        user: userData
+                    });
+                })(req, res, next);
+
+            });
 });
+
+
+
+
+
 
 router.post('/login', jsonParser, (req, res, next)=>{
     const validationResult = validateLoginForm(req.body);
@@ -102,8 +145,7 @@ function validateSignupForm(payload){
 
     if(!payload || typeof payload.email!=="string" || !validator.isEmail(payload.email)){
         validForm = false;
-        errors.email = 'Unvalid Email address.';
-    }
+        errors.email = 'Unvalid Email address.';}
 
     if(!payload || typeof payload.password!=="string" || payload.password.trim().length<8){
         validForm = false;
@@ -111,7 +153,7 @@ function validateSignupForm(payload){
     }
 
     if(!validForm){
-        message = 'check the form.'
+        message = '用户名格式错误.'
     }
     res =  {
         success: validForm,
@@ -148,5 +190,6 @@ function validateLoginForm(payload){
         errors
     };
 }
+
 
 module.exports = router;

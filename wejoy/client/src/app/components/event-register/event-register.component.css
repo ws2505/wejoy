@@ -28,3 +28,12 @@ pre {
   white-space: -o-pre-wrap;    /* Opera 7 */
   word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
+
+.register-card{
+  max-width: 800px;
+}
+.button{
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}

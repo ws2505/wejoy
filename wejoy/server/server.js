@@ -11,8 +11,8 @@ var pageRouter = require("./routes/page");
 
 var authorization = require("./middleware/auth_checker");
 
-mongoose.connect('mongodb://localhost/wejoy_db');
-//mongoose.connect("mongodb://root:root123@ds117061.mlab.com:17061/wejoy_db");
+//mongoose.connect('mongodb://localhost/wejoy_db');
+mongoose.connect("mongodb://root:root123@ds117061.mlab.com:17061/wejoy_db");
 
 app.use(passport.initialize());
 var localSignUpStrategy = require('./passport/signup');
@@ -42,7 +42,7 @@ app.use(function(req, res){
 
 var server = http.createServer(app);
 //io.attach(server);
-server.listen(3000);
+server.listen(8081);
 
 server.on('error', onError);
 server.on('listening', onListening);
